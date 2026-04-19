@@ -55,10 +55,6 @@ $$
 * WLOG, suppose $a < x_0 < x_1$.
     - If $f(x_0) > f(x_1)$, then the minimum lies in the interval $(x_0, b)$. Hence set $(a, x_1, b) := (x_0, x_1, b)$.
     - Otherwise, the minimum lies in the interval $(a, x_1)$. Hence set $(a, x_1, b) := (a, x_0, x_1)$.        
-<!--    
-    - If $f(x_0) < f(x_1)$, then the minimum lies in the interval $(a, x_1)$. Hence set $(a, x_1, b) := (a, x_0, x_1)$.    
-    - If $f(x_0) = f(x_1)$, then set $(a, x_1, b) := (x_0, x_1, b)$ if $f(b) < f(a)$, and set $(a, x_1, b) := (a, x_0, x_1)$ otherwise.
--->
     
 <img src="images/goldensection_new.png" width="500" align="center"/>
 
