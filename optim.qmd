@@ -190,7 +190,7 @@ d2f <- function(x) -sin(x) # hessian
 purenewton(f, df, d2f, 2.0)
 ```
 
-<img src="images/newton_sine_1.gif" width="500" align="left">
+![](images/newton_sine_1.gif){width=500}
 
 ```{r}
 #| output-fold: true
@@ -198,7 +198,7 @@ purenewton(f, df, d2f, 2.0)
 purenewton(f, df, d2f, 2.75)
 ```
 
-<img src="images/newton_sine_2.gif" width="500" align="left">
+![](images/newton_sine_2.gif){width=500}
 
 ```{r}
 #| output-fold: true
@@ -206,7 +206,7 @@ purenewton(f, df, d2f, 2.75)
 purenewton(f, df, d2f, 4.0)
 ```
 
-<img src="images/newton_sine_3.gif" width="500" align="left">
+![](images/newton_sine_3.gif){width=500}
 
 ## Practical Newton
 
