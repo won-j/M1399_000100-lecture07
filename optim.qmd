@@ -39,7 +39,7 @@ $$
 
 * Assumption: $f$ is continuous and *strictly unimodal* on the interval
 \
-<img src="images/unimodal.png" width="600" align="center"/>
+![Giernacki, W., Horla, D., Báča, T., & Saska, M. (2019). Real-time model-free minimum-seeking autotuning method for unmanned aerial vehicle controllers based on fibonacci-search algorithm. Sensors, 19(2), 312.](images/unimodal.png){width=600}
 
     A function $f: [a,b] \to \mathbb{R}$ is strictly unimodal if 
     $$
@@ -56,7 +56,7 @@ $$
     - If $f(x_0) > f(x_1)$, then the minimum lies in the interval $(x_0, b)$. Hence set $(a, x_1, b) := (x_0, x_1, b)$.
     - Otherwise, the minimum lies in the interval $(a, x_1)$. Hence set $(a, x_1, b) := (a, x_0, x_1)$.        
     
-<img src="images/goldensection_new.png" width="500" align="center"/>
+![](images/goldensection_new.png){width=400}
 
 
 * Above rules do not say how to choose $x_0$. A possibility is to keep the lengths of the two possible candidate intervals the same: $b - x_0 = x_1 - a$, and the relative position of the intermediate points ($x_1$ to $(x_0, b)$; $x_0$ to $(a, x_1)$) the same. 
@@ -70,7 +70,7 @@ $$
 $$
 By solving this equation, we have $\alpha = \frac{3 - \sqrt{5}}{2}$ or $1 - \alpha = \frac{\sqrt{5} - 1}{2}$, the golden section.
 
-<img src="images/goldensection2_new.png" width="500" align="center"/>
+![](images/goldensection2_new.png){width=500}
 
 ```{r}
 #| output-fold: true
@@ -289,41 +289,47 @@ $$
 
 * Binary data: response $y_i \in \{0,1\}$, predictor $\mathbf{x}_i \in \mathbb{R}^{p}$. 
 
-* Model: $y_i \sim $Bernoulli$(p_i)$, where
-\begin{eqnarray*}
-	\mathbf{E} (y_i) = p_i &=& g^{-1}(\eta_i) = \frac{e^{\eta_i}}{1+ e^{\eta_i}} \quad \text{(mean function, inverse link function)} \\
-	\eta_i = \mathbf{x}_i^T \beta &=& g(p_i) = \log \left( \frac{p_i}{1-p_i} \right) \quad \text{(logit link function)}.
-\end{eqnarray*}
+* Model: $y_i \sim \text{Bernoulli}(p_i)$, where
+$$
+\begin{align*}
+	\mathbf{E} (y_i) = p_i &= g^{-1}(\eta_i) = \frac{e^{\eta_i}}{1+ e^{\eta_i}} \quad \text{(mean function, inverse link function)} \\
+	\eta_i = \mathbf{x}_i^T \beta &= g(p_i) = \log \left( \frac{p_i}{1-p_i} \right) \quad \text{(logit link function)}.
+\end{align*}
+$$
 
 
 * MLE: density
-\begin{eqnarray*}
-	f(y_i|p_i) &=& p_i^{y_i} (1-p_i)^{1-y_i} \\
-	&=& e^{y_i \log p_i + (1-y_i) \log (1-p_i)} \\
-	&=& \exp\left( y_i \log \frac{p_i}{1-p_i} + \log (1-p_i)\right).
-\end{eqnarray*}
+$$
+\begin{align*}
+	f(y_i|p_i) &= p_i^{y_i} (1-p_i)^{1-y_i} \\
+	&= e^{y_i \log p_i + (1-y_i) \log (1-p_i)} \\
+	&= \exp\left( y_i \log \frac{p_i}{1-p_i} + \log (1-p_i)\right).
+\end{align*}
+$$
 
 
 * Log likelihood of the data $(y_i,\mathbf{x}_i)$, $i=1,\ldots,n$, and its derivatives are
-\begin{eqnarray*}
-	\ell(\beta) &=& \sum_{i=1}^n \left[ y_i \log p_i + (1-y_i) \log (1-p_i) \right] \\
-	&=& \sum_{i=1}^n \left[ y_i \mathbf{x}_i^T \beta - \log (1 + e^{\mathbf{x}_i^T \beta}) \right] \\
-	\nabla \ell(\beta) &=& \sum_{i=1}^n \left( y_i \mathbf{x}_i - \frac{e^{\mathbf{x}_i^T \beta}}{1+e^{\mathbf{x}_i^T \beta}} \mathbf{x}_i \right) \\
-	&=& \sum_{i=1}^n (y_i - p_i) \mathbf{x}_i = \mathbf{X}^T (\mathbf{y} - \mathbf{p})	\\
-	- \nabla^2\ell(\beta) &=& \sum_{i=1}^n p_i(1-p_i) \mathbf{x}_i \mathbf{x}_i^T = \mathbf{X}^T \mathbf{W} \mathbf{X}, \quad
-	\text{where } \mathbf{W} &=& \text{diag}(w_1,\ldots,w_n), w_i = p_i (1-p_i) \\
-	\mathbf{I}(\beta) &=& \mathbf{E} [- \nabla^2\ell(\beta)] = \mathbf{X}^T \mathbf{W} \mathbf{X} = - \nabla^2\ell(\beta) \quad \text{!!!}
-\end{eqnarray*}
+$$
+\begin{align*}
+	\ell(\beta) &= \sum_{i=1}^n \left[ y_i \log p_i + (1-y_i) \log (1-p_i) \right] \\
+	&= \sum_{i=1}^n \left[ y_i \mathbf{x}_i^T \beta - \log (1 + e^{\mathbf{x}_i^T \beta}) \right] \\
+	\nabla \ell(\beta) &= \sum_{i=1}^n \left( y_i \mathbf{x}_i - \frac{e^{\mathbf{x}_i^T \beta}}{1+e^{\mathbf{x}_i^T \beta}} \mathbf{x}_i \right) \\
+	&= \sum_{i=1}^n (y_i - p_i) \mathbf{x}_i = \mathbf{X}^T (\mathbf{y} - \mathbf{p})	\\
+	- \nabla^2\ell(\beta) &= \sum_{i=1}^n p_i(1-p_i) \mathbf{x}_i \mathbf{x}_i^T = \mathbf{X}^T \mathbf{W} \mathbf{X}, \quad
+	\text{where } \mathbf{W} &= \text{diag}(w_1,\ldots,w_n), w_i = p_i (1-p_i) \\
+	\mathbf{I}(\beta) &= \mathbf{E} [- \nabla^2\ell(\beta)] = \mathbf{X}^T \mathbf{W} \mathbf{X} = - \nabla^2\ell(\beta) \quad \text{!!!}
+\end{align*}
+$$
    (why the last line?)
 
 * Therefore for this problem **Newton's method == Fisher scoring**: 
 $$
-\begin{eqnarray*}
-	\beta^{(t+1)} &=& \beta^{(t)} + s[-\nabla^2 \ell(\beta^{(t)})]^{-1} \nabla \ell(\beta^{(t)})	\\
-	&=& \beta^{(t)} + s(\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T (\mathbf{y} - \mathbf{p}^{(t)}) \\
-	&=& (\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}^{(t)} \left[ \mathbf{X} \beta^{(t)} + s(\mathbf{W}^{(t)})^{-1} (\mathbf{y} - \mathbf{p}^{(t)}) \right] \\
-	&=& (\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}^{(t)} \mathbf{z}^{(t)},
-\end{eqnarray*}
+\begin{align*}
+	\beta^{(t+1)} &= \beta^{(t)} + s[-\nabla^2 \ell(\beta^{(t)})]^{-1} \nabla \ell(\beta^{(t)})	\\
+	&= \beta^{(t)} + s(\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T (\mathbf{y} - \mathbf{p}^{(t)}) \\
+	&= (\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}^{(t)} \left[ \mathbf{X} \beta^{(t)} + s(\mathbf{W}^{(t)})^{-1} (\mathbf{y} - \mathbf{p}^{(t)}) \right] \\
+	&= (\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}^{(t)} \mathbf{z}^{(t)},
+\end{align*}
 $$
 where 
 $$
@@ -343,40 +349,46 @@ Thus the name **IRLS (iteratively re-weighted least squares)**.
 
 * Count data: response $y_i \in \{0, 1, 2, \dotsc \}$, predictor $\mathbf{x}_i \in \mathbb{R}^{p}$. 
 
-* Model: $y_i \sim $Poisson$(\lambda_i)$, where
-\begin{eqnarray*}
-	\mathbf{E} (y_i) = \lambda_i &=& g^{-1}(\eta_i) = e^{\eta_i} \quad \text{(mean function, inverse link function)} \\
-	\eta_i = \mathbf{x}_i^T \beta &=& g(p_i) = \log \lambda_i  \quad \text{(logit link function)}.
-\end{eqnarray*}
+* Model: $y_i \sim \text{Poisson}(\lambda_i)$, where
+$$
+\begin{align*}
+	\mathbf{E} (y_i) = \lambda_i &= g^{-1}(\eta_i) = e^{\eta_i} \quad \text{(mean function, inverse link function)} \\
+	\eta_i = \mathbf{x}_i^T \beta &= g(p_i) = \log \lambda_i  \quad \text{(logit link function)}.
+\end{align*}
+$$
 
 
 * MLE: density
-\begin{eqnarray*}
-	f(y_i|\lambda_i) &=& e^{-\lambda_i}\frac{\lambda_i^{y_i}}{y_i!} \\
-	&=& \exp\left( y_i \log \lambda_i - \lambda_i - \log(y_i!) \right)
-\end{eqnarray*}
+$$
+\begin{align*}
+	f(y_i|\lambda_i) &= e^{-\lambda_i}\frac{\lambda_i^{y_i}}{y_i!} \\
+	&= \exp\left( y_i \log \lambda_i - \lambda_i - \log(y_i!) \right)
+\end{align*}
+$$
 
 
 * Log likelihood of the data $(y_i,\mathbf{x}_i)$, $i=1,\ldots,n$, and its derivatives are
-\begin{eqnarray*}
-	\ell(\beta) &=& \sum_{i=1}^n \left[ y_i \log \lambda_i - \lambda_i - \log(y_i!) \right] \\
-	&=& \sum_{i=1}^n \left[ y_i \mathbf{x}_i^T \beta - \exp(\mathbf{x}_i^T \beta) - \log(y_i!) \right] \\
-	\nabla \ell(\beta) &=& \sum_{i=1}^n \left( y_i \mathbf{x}_i - \exp(\mathbf{x}_i^T \beta)\mathbf{x}_i \right) \\
-	&=& \sum_{i=1}^n (y_i - \lambda_i) \mathbf{x}_i = \mathbf{X}^T (\mathbf{y} - \boldsymbol{\lambda})	\\
-	- \nabla^2\ell(\beta) &=& \sum_{i=1}^n \lambda_i \mathbf{x}_i \mathbf{x}_i^T = \mathbf{X}^T \mathbf{W} \mathbf{X}, \quad
+$$
+\begin{align*}
+	\ell(\beta) &= \sum_{i=1}^n \left[ y_i \log \lambda_i - \lambda_i - \log(y_i!) \right] \\
+	&= \sum_{i=1}^n \left[ y_i \mathbf{x}_i^T \beta - \exp(\mathbf{x}_i^T \beta) - \log(y_i!) \right] \\
+	\nabla \ell(\beta) &= \sum_{i=1}^n \left( y_i \mathbf{x}_i - \exp(\mathbf{x}_i^T \beta)\mathbf{x}_i \right) \\
+	&= \sum_{i=1}^n (y_i - \lambda_i) \mathbf{x}_i = \mathbf{X}^T (\mathbf{y} - \boldsymbol{\lambda})	\\
+	- \nabla^2\ell(\beta) &= \sum_{i=1}^n \lambda_i \mathbf{x}_i \mathbf{x}_i^T = \mathbf{X}^T \mathbf{W} \mathbf{X}, \quad
 	\text{where } \mathbf{W} = \text{diag}(\lambda_1,\ldots,\lambda_n) \\
-	\mathbf{I}(\beta) &=& \mathbf{E} [- \nabla^2\ell(\beta)] = \mathbf{X}^T \mathbf{W} \mathbf{X} = - \nabla^2\ell(\beta) \quad \text{!!!}
-\end{eqnarray*}
+	\mathbf{I}(\beta) &= \mathbf{E} [- \nabla^2\ell(\beta)] = \mathbf{X}^T \mathbf{W} \mathbf{X} = - \nabla^2\ell(\beta) \quad \text{!!!}
+\end{align*}
+$$
    (why the last line?)
 
 * Therefore for this problem **Newton's method == Fisher scoring**: 
 $$
-\begin{eqnarray*}
-	\beta^{(t+1)} &=& \beta^{(t)} + s[-\nabla^2 \ell(\beta^{(t)})]^{-1} \nabla \ell(\beta^{(t)})	\\
-	&=& \beta^{(t)} + s(\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T (\mathbf{y} - \boldsymbol{\lambda}^{(t)}) \\
-	&=& (\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}^{(t)} \left[ \mathbf{X} \beta^{(t)} + s(\mathbf{W}^{(t)})^{-1} (\mathbf{y} - \boldsymbol{\lambda}^{(t)}) \right] \\
-	&=& (\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}^{(t)} \mathbf{z}^{(t)},
-\end{eqnarray*}
+\begin{align*}
+	\beta^{(t+1)} &= \beta^{(t)} + s[-\nabla^2 \ell(\beta^{(t)})]^{-1} \nabla \ell(\beta^{(t)})	\\
+	&= \beta^{(t)} + s(\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T (\mathbf{y} - \boldsymbol{\lambda}^{(t)}) \\
+	&= (\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}^{(t)} \left[ \mathbf{X} \beta^{(t)} + s(\mathbf{W}^{(t)})^{-1} (\mathbf{y} - \boldsymbol{\lambda}^{(t)}) \right] \\
+	&= (\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}^{(t)} \mathbf{z}^{(t)},
+\end{align*}
 $$
 where 
 $$
@@ -522,12 +534,13 @@ $$
 Then, after some workout with matrix calculus, we have for $n$ samples:
 
 * Score, Hessian, information
-
-\begin{eqnarray*}
- 	\nabla\ell(\beta) &=& \sum_{i=1}^n \frac{(y_i-\mu_i) [1/g'(\mu_i)]}{\sigma_i^2} \mathbf{x}_i, \quad \mu_i = g^{-1}(\mathbf{x}_i^T\beta), ~\sigma_i^2 = b''(\eta_i), \\
-	- \nabla^2 \ell(\beta) &=& \sum_{i=1}^n \frac{[1/g'(\mu_i)]^2}{\sigma_i^2} \mathbf{x}_i \mathbf{x}_i^T - \sum_{i=1}^n \frac{(y_i - \mu_i)[b'''(\eta_i)/[b''(\eta_i)(g'(\mu_i)^2] - g''(\mu_i)/[g'(\mu_i)]^3]}{\sigma^2} \mathbf{x}_i \mathbf{x}_i^T, \\
-	\mathbf{I}(\beta) &=& \mathbf{E} [- \nabla^2 \ell(\beta)] = \sum_{i=1}^n \frac{[1/g'(\mu_i)]^2}{\sigma_i^2} \mathbf{x}_i \mathbf{x}_i^T = \mathbf{X}^T \mathbf{W} \mathbf{X}.
-\end{eqnarray*}    
+$$
+\begin{align*}
+ 	\nabla\ell(\beta) &= \sum_{i=1}^n \frac{(y_i-\mu_i) [1/g'(\mu_i)]}{\sigma_i^2} \mathbf{x}_i, \quad \mu_i = g^{-1}(\mathbf{x}_i^T\beta), ~\sigma_i^2 = b''(\eta_i), \\
+	- \nabla^2 \ell(\beta) &= \sum_{i=1}^n \frac{[1/g'(\mu_i)]^2}{\sigma_i^2} \mathbf{x}_i \mathbf{x}_i^T - \sum_{i=1}^n \frac{(y_i - \mu_i)[b'''(\eta_i)/[b''(\eta_i)(g'(\mu_i)^2] - g''(\mu_i)/[g'(\mu_i)]^3]}{\sigma^2} \mathbf{x}_i \mathbf{x}_i^T, \\
+	\mathbf{I}(\beta) &= \mathbf{E} [- \nabla^2 \ell(\beta)] = \sum_{i=1}^n \frac{[1/g'(\mu_i)]^2}{\sigma_i^2} \mathbf{x}_i \mathbf{x}_i^T = \mathbf{X}^T \mathbf{W} \mathbf{X}.
+\end{align*}    
+$$
 
 
 * Fisher scoring method:
@@ -635,7 +648,7 @@ to obtain $\Delta\mathbf{x} = -\nabla f(\mathbf{x}^{(t)})/\|\nabla f(\mathbf{x}^
 
     <img src="https://jfukuyama.github.io/teaching/stat710/notes/gradient-descent-backtracking.png" width="400" align="center"/>
     
-    - Do not work for non-smooth problems.
+    - Does not work for non-smooth problems.
 
 ### Convergence
 
@@ -741,7 +754,7 @@ $$
     x_j^{(t+1)} = \arg\min_{x_j} f(x_1^{(t+1)}, \dotsc, x_{j-1}^{(t+1)}, x_j, x_{j+1}^{(t)}, \dotsc, x_d^{(t)})
 $$
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Coordinate_descent.svg/768px-Coordinate_descent.svg.png" width="400" align="center"/>
+![By Nicoguaro - Own work, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=46260701](images/500px-Coordinate_descent.svg.png)
 
 * Similar to the Gauss-Seidel method for solving linear equations. 
 
@@ -755,5 +768,5 @@ $$
 
 * Caution: even if the objective function is convex, coordinate descent may *not* converge to the global minimum and converge to a suboptimal point.
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Nonsmooth_coordinate_descent.svg/500px-Nonsmooth_coordinate_descent.svg.png" width=400>
+![By Nicoguaro - Own work  This W3C-unspecified plot was created with Matplotlib., CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=46261625](images/500px-Nonsmooth_coordinate_descent.svg.png)
 
