@@ -260,7 +260,7 @@ where $\mathbf{H}^{(t)}$ is a positive definite approximation to $\nabla^2 f(\ma
     }
 ```
 
-<img src="https://jfukuyama.github.io/teaching/stat710/notes/backtracking-image.png" width=400>
+![soruce: https://jfukuyama.github.io/teaching/stat710/notes/backtracking-image.png](images/backtracking-image.png){width=400}
 
 > The lower dashed line shows the linear extrapolation of $f$, and the upper dashed line has a slope a factor of α smaller. The backtracking condition is that $f$ lies below the upper dashed line, i.e., $0 \le t \le t_0$.
 
@@ -582,7 +582,7 @@ $$
 	\mu(x, \beta_1,\beta_2,\beta_3) = \frac{\beta_3}{1 + \exp(-\beta_1 - \beta_2 x)}.
 $$
 
-<img src="https://cdn.xlstat.com/img/tutorials/nlin5.gif" width="300" align="center"/>
+![source: https://cdn.xlstat.com/img/tutorials/nlin5.gif](images/nlin5.gif){width=500}
 
 * If $\mu_i$ is a linear function of $\beta$, i.e., $\mathbf{x}_i^T\beta$, then NLLS reduces to the usual least squares.
 
@@ -604,11 +604,13 @@ $$
 * Justification
     1. Residuals $y_i - \mu_i(\mathbf{x}_i, \beta)$ are small, or $\mu_i$ is nearly linear;
     2. Model the data as $y_i \sim N(\mu_i(\mathbf{x}_i, \beta), \sigma^2)$, where $\sigma^2$ is assumed to be known. Then, 
-\begin{align*}
+    $$
+    \begin{align*}
         \ell(\beta) &= -\frac{1}{2\sigma^2}\sum_{i=1}^n [y_i - \mu_i(\beta)] \nabla \mu_i(\mathbf{x}_i, \beta) \\
         \nabla\ell(\beta) &= -\sum_{i=1}^n \nabla \mu_i(\mathbf{x}_i,\beta) \nabla \mu_i(\mathbf{x}_i,\beta)^T - \sum_{i=1}^n [y_i - \mu_i(\beta)] \nabla^2 \mu_i(\mathbf{x}_i, \beta) \\
         -\nabla^2 \ell(\beta) &= \sum_{i=1}^n \nabla \mu_i(\mathbf{x}_i,\beta) \nabla \mu_i(\mathbf{x}_i,\beta)^T - \sum_{i=1}^n [y_i - \mu_i(\beta)] \nabla^2 \mu_i(\mathbf{x}_i,\beta) \\
-\end{align*}
+    \end{align*}
+    $$
     Thus
     $$
         \mathbf{E}[-\nabla^2 \ell(\beta)] = \sum_{i=1}^n \nabla \mu_i(\beta) \nabla \mu_i(\beta)^T.
@@ -646,7 +648,7 @@ to obtain $\Delta\mathbf{x} = -\nabla f(\mathbf{x}^{(t)})/\|\nabla f(\mathbf{x}^
 * Cons
     - Slow convergence (zigzagging).
 
-    <img src="https://jfukuyama.github.io/teaching/stat710/notes/gradient-descent-backtracking.png" width="400" align="center"/>
+    ![source: https://jfukuyama.github.io/teaching/stat710/notes/gradient-descent-backtracking.png](images/gradient-descent-backtracking.png){width=400}
     
     - Does not work for non-smooth problems.
 
